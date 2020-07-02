@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import {Component} from '@angular/core';
+import {FormGroup} from '@angular/forms';
 import {FormlyFieldConfig, FormlyFormOptions} from '@ngx-formly/core';
 
 @Component({
@@ -14,7 +14,7 @@ export class AppComponent {
   fields: FormlyFieldConfig[] = [{
     validators: {
       validation: [
-        { name: 'fieldMatch', options: { errorPath: 'passwordConfirm' } },
+        {name: 'fieldMatch', options: {errorPath: 'passwordConfirm'}},
       ],
     },
     fieldGroup: [
@@ -35,7 +35,7 @@ export class AppComponent {
           label: 'Password',
           placeholder: 'Must be at least 5 characters',
           required: true,
-          minLength: 6,
+          minLength: 5,
         },
       },
       {
@@ -50,10 +50,9 @@ export class AppComponent {
       },
     ],
   }];
-  submit() {
+
+  onSubmit(): void {
     console.log(this.form.value);
     this.form.reset();
-
-
   }
 }
