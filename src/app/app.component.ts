@@ -1,15 +1,29 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormGroup} from '@angular/forms';
 import {FormlyFieldConfig, FormlyFormOptions} from '@ngx-formly/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styles: ['.container {\n' +
+  '  display: flex;\n' +
+  '  justify-content: center;\n' +
+  '  align-items: center;\n' +
+  '  height: 100%;\n' +
+  '}\n' +
+  '.card {\n' +
+  '  width: 500px;\n' +
+  '  display: block;\n' +
+  '}\n']
 })
-export class AppComponent {
+export class AppComponent implements  OnInit {
   form = new FormGroup({});
-  model: any = {};
+  model: any = {
+    login: '',
+    password: '',
+    passwordConfirm: '',
+    checkbox: false
+  };
   options: FormlyFormOptions = {};
   fields: FormlyFieldConfig[] = [{
     validators: {
@@ -19,7 +33,7 @@ export class AppComponent {
     },
     fieldGroup: [
       {
-        key: 'Login',
+        key: 'login',
         type: 'input',
         templateOptions: {
           label: 'Login',
@@ -48,11 +62,28 @@ export class AppComponent {
           required: true,
         },
       },
+      {
+        key: 'checkbox',
+        type: 'checkbox',
+        templateOptions: {
+          label: 'Запомнить меня',
+        },
+      },
     ],
   }];
-
+  dataSaver(): void {
+   if (this.model.checkbox) {
+      localStorage.setItem('key', JSON.stringify(this.model));
+    }
+  }
   onSubmit(): void {
-    console.log(this.form.value);
     this.form.reset();
+  }
+  ngOnInit(): void {
+    if (!localStorage.getItem('key')) {
+      return;
+    }
+    const startData = localStorage.getItem('key');
+    this.model = JSON.parse(startData);
   }
 }

@@ -1,6 +1,6 @@
 <div class="container"><mat-card class="card">
   <h1>Registration</h1><form [formGroup]="form" (ngSubmit)="onSubmit()">
   <formly-form [model]="model" [fields]="fields" [options]="options" [form]="form"></formly-form>
-  <button type="submit" [disabled]="form.invalid" mat-raised-button>Confirm</button></form></mat-card>
+  <button (click)="dataSaver()" type="submit" [disabled]="form.invalid" mat-raised-button>Confirm</button></form></mat-card>
 </div>
 
