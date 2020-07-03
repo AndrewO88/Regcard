@@ -4,17 +4,22 @@ import {FormlyFieldConfig, FormlyFormOptions} from '@ngx-formly/core';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styles: ['.container {\n' +
-  '  display: flex;\n' +
-  '  justify-content: center;\n' +
-  '  align-items: center;\n' +
-  '  height: 100%;\n' +
-  '}\n' +
-  '.card {\n' +
-  '  width: 500px;\n' +
-  '  display: block;\n' +
-  '}\n']
+  template: `<div class="container"><mat-card class="card">
+    <h1>Registration</h1><form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <formly-form [model]="model" [fields]="fields" [options]="options" [form]="form"></formly-form>
+    <button (click)="dataSaver()" type="submit" [disabled]="form.invalid" mat-raised-button>Confirm</button></form></mat-card>
+  </div>
+  `,
+  styles: [`.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+  .card {
+    width: 500px;
+    display: block;
+  }`]
 })
 export class AppComponent implements  OnInit {
   form = new FormGroup({});
