@@ -9,6 +9,9 @@ import { FormlyMaterialModule } from '@ngx-formly/material';
 import {MatCardModule} from '@angular/material/card';
 import {CommonModule} from '@angular/common';
 import {MatButtonModule} from '@angular/material/button';
+import { LoginComponent } from './login/login.component';
+import { HomeComponent } from './home/home.component';
+import {AppRoutingModule} from './app-routing.module';
 
 export function minlengthValidationMessages(err, field) {
   return `Should have atleast ${field.templateOptions.minLength} characters`;
@@ -32,7 +35,9 @@ export function fieldMatchValidator(control: AbstractControl) {
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    LoginComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -50,10 +55,11 @@ export function fieldMatchValidator(control: AbstractControl) {
     }),
     FormlyMaterialModule,
     MatCardModule,
-    MatButtonModule
+    MatButtonModule,
+    AppRoutingModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent, LoginComponent,]
 })
 export class AppModule { }
 
