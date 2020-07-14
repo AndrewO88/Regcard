@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ReactiveFormsModule, AbstractControl } from '@angular/forms';
+import {ReactiveFormsModule, AbstractControl, FormsModule} from '@angular/forms';
 import { FormlyModule } from '@ngx-formly/core';
 import { FormlyMaterialModule } from '@ngx-formly/material';
 import {MatCardModule} from '@angular/material/card';
@@ -12,6 +12,11 @@ import {MatButtonModule} from '@angular/material/button';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import {AppRoutingModule} from './app-routing.module';
+import { HttpClientComponent } from './httpclient/http-client.component';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatIconModule} from '@angular/material/icon';
+import {HttpClientModule} from '@angular/common/http';
+import {MatInputModule} from '@angular/material/input';
 
 export function minlengthValidationMessages(err, field) {
   return `Should have atleast ${field.templateOptions.minLength} characters`;
@@ -37,7 +42,8 @@ export function fieldMatchValidator(control: AbstractControl) {
   declarations: [
     AppComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    HttpClientComponent
   ],
   imports: [
     BrowserModule,
@@ -56,7 +62,13 @@ export function fieldMatchValidator(control: AbstractControl) {
     FormlyMaterialModule,
     MatCardModule,
     MatButtonModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MatFormFieldModule,
+    FormsModule,
+    MatIconModule,
+    HttpClientModule,
+    FormlyModule.forRoot(),
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent, LoginComponent,]

@@ -1,0 +1,40 @@
+<div class="container">
+  <mat-card>
+    <h1>HttpClient</h1>
+    <div class="form-control">
+      <mat-form-field class="inp">
+        <mat-label>Введите текст</mat-label>
+        <label>
+          <input  matInput type="text" [(ngModel)]="todoTitle">
+        </label>
+        <button  (click)="onClick()" matSuffix mat-icon-button  >
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
+    </div>
+    <button (click)="addTodo()" mat-raised-button color="primary">Добавить</button>
+    <button class="tre" (click)="fetchTodos()" mat-raised-button color="primary">Загрузить</button>
+    <button class="tre1" routerLink="/home" mat-raised-button color="primary">Назад</button>
+  </mat-card>
+  <div *ngIf="!loading; else loadingBlock">
+    <div *ngIf="todos.length; else noTodos">
+      <mat-card class="card" *ngFor="let todo of todos">
+        <p>
+          <span [class.completed]="todo.completed">{{todo.title | titlecase}}</span>
+          <span>
+            <button (click)="removeTodo(todo.id)" mat-raised-button color="warn">Удалить</button>
+          </span>
+        </p>
+      </mat-card>
+    </div>
+    <ng-template #noTodos>
+      <p>Нет элементов</p>
+    </ng-template>
+  </div>
+  <ng-template #loadingBlock>
+    <p>Загрузка...</p>
+  </ng-template>
+</div>
+
+
+
