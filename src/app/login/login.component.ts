@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormGroup} from '@angular/forms';
 import {FormlyFieldConfig, FormlyFormOptions} from '@ngx-formly/core';
+import {LogDataService} from '../services/log-data.service';
 
 @Component({
   selector: 'app-login',
@@ -62,12 +63,18 @@ export class LoginComponent implements  OnInit {
       },
     ],
   }];
+  constructor(private check: LogDataService) {
+  }
+
   dataSaver(): void {
     if (this.model.checkbox) {
       localStorage.setItem('key', JSON.stringify(this.model));
     }
+  this.check.checkId()
   }
+
   onSubmit(): void {
+
     this.form.reset();
   }
   ngOnInit(): void {
@@ -77,4 +84,5 @@ export class LoginComponent implements  OnInit {
     const startData = localStorage.getItem('key');
     this.model = JSON.parse(startData);
   }
+
 }

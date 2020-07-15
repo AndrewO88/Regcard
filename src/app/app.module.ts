@@ -17,6 +17,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
 import {HttpClientModule} from '@angular/common/http';
 import {MatInputModule} from '@angular/material/input';
+import {LogDataService} from './services/log-data.service';
 
 export function minlengthValidationMessages(err, field) {
   return `Should have atleast ${field.templateOptions.minLength} characters`;
@@ -70,7 +71,7 @@ export function fieldMatchValidator(control: AbstractControl) {
     FormlyModule.forRoot(),
     MatInputModule
   ],
-  providers: [],
+  providers: [LogDataService],
   bootstrap: [AppComponent, LoginComponent,]
 })
 export class AppModule { }
