@@ -13,15 +13,9 @@ const validIds =  [
 })
 export class LogDataService {
 
-  checkId() {
-    const startData = localStorage.getItem('key');
-    const testId= validIds.map(i =>{return i.login}).map(i =>{return i});
-    const testPass= validIds.map(i =>{return i.password}).map(i =>{return i})
-    if (testId.find(i => i === JSON.parse(startData).login) && (testPass.find(i => i === JSON.parse(startData).password))) {
-      console.log('Этого гуся мы знаем');
-    } else {
-      console.log('Залетный фраер');
-    }
+  checkId(model) {
+    return validIds.find(i => i.login === model.login && i.password === model.password)
+
   }
 
 }

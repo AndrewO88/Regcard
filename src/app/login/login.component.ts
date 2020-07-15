@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormGroup} from '@angular/forms';
 import {FormlyFieldConfig, FormlyFormOptions} from '@ngx-formly/core';
 import {LogDataService} from '../services/log-data.service';
@@ -8,7 +8,7 @@ import {LogDataService} from '../services/log-data.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements  OnInit {
+export class LoginComponent implements OnInit {
   form = new FormGroup({});
   model: any = {
     login: '',
@@ -63,6 +63,7 @@ export class LoginComponent implements  OnInit {
       },
     ],
   }];
+
   constructor(private check: LogDataService) {
   }
 
@@ -70,13 +71,18 @@ export class LoginComponent implements  OnInit {
     if (this.model.checkbox) {
       localStorage.setItem('key', JSON.stringify(this.model));
     }
-  this.check.checkId()
+    if (this.check.checkId(this.model)) {
+      console.log('Этого гуся мы знаем');
+    } else {
+      console.log('Залетный фраер');
+    }
   }
 
   onSubmit(): void {
 
     this.form.reset();
   }
+
   ngOnInit(): void {
     if (!localStorage.getItem('key')) {
       return;
