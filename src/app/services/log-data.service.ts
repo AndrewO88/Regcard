@@ -1,6 +1,16 @@
 import { Injectable } from '@angular/core';
+interface PersonData {
+  name: string,
+  address: string,
+  email: string
+}
+interface ValidIds {
+  login: string,
+  password: string,
+  personData: PersonData
 
-const validIds =  [
+}
+const validIds: ValidIds[] =  [
   {login: 'Adolf', password: 'Hiellhitter', personData: {name: 'Австрийский художник', address: 'Berlin', email: 'fuhrer@3reih.com' } },
   {login: 'Бусичка', password: '123456', personData: {name: 'Елена Букова', address: 'Saint Petersburg', email: 'Maluseishina@mail.com' } },
   {login: 'Ganjubas88', password: 'Canabinol', personData: {name: 'Снуп Догг', address: 'Hidra', email: 'dudochka@goodstuff.com' } },
@@ -18,10 +28,10 @@ export class LogDataService {
 
   }
 
-  showData(model) {
-    if (this.checkId(model)) {
-     return  console.log(this.checkId(model).personData);
-    }
-  }
+  // showData(model) {
+  //   if (this.checkId(model)) {
+  //    return  console.log(this.checkId(model).personData);
+  //   }
+  // }
 
 }

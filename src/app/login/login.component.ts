@@ -71,9 +71,10 @@ export class LoginComponent implements OnInit {
     if (this.model.checkbox) {
       localStorage.setItem('key', JSON.stringify(this.model));
     }
-    if (this.check.checkId(this.model)) {
-      console.log('Этого гуся мы знаем');
-      this.check.showData(this.model);
+    const user = this.check.checkId(this.model)
+    if (user) {
+      console.log('Этого гуся мы знаем', user.personData);
+      // this.check.showData(this.model);
     } else {
       console.log('Залетный фраер');
     }
