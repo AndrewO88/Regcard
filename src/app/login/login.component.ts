@@ -73,6 +73,7 @@ export class LoginComponent implements OnInit {
     }
     if (this.check.checkId(this.model)) {
       console.log('Этого гуся мы знаем');
+      this.check.showData(this.model);
     } else {
       console.log('Залетный фраер');
     }
