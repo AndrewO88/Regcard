@@ -72,7 +72,7 @@ export function fieldMatchValidator(control: AbstractControl) {
     MatInputModule
   ],
   providers: [LogDataService],
-  bootstrap: [AppComponent, LoginComponent,]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }
 

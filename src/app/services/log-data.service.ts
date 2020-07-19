@@ -4,7 +4,7 @@ interface PersonData {
   address: string,
   email: string
 }
-interface ValidIds {
+export interface ValidIds {
   login: string,
   password: string,
   personData: PersonData
@@ -22,9 +22,10 @@ const validIds: ValidIds[] =  [
   providedIn: 'root'
 })
 export class LogDataService {
-
+  userData:  ValidIds
   checkId(model) {
-    return validIds.find(i => i.login === model.login && i.password === model.password)
+    this.userData = validIds.find(i => i.login === model.login && i.password === model.password)
+    return  this.userData
 
   }
 

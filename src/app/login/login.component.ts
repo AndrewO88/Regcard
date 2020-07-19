@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormGroup} from '@angular/forms';
 import {FormlyFieldConfig, FormlyFormOptions} from '@ngx-formly/core';
 import {LogDataService} from '../services/log-data.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -64,24 +65,28 @@ export class LoginComponent implements OnInit {
     ],
   }];
 
-  constructor(private check: LogDataService) {
+  constructor(
+    private check: LogDataService,
+    private router:  Router
+  ) {
+
   }
 
-  dataSaver(): void {
+
+  onSubmit(): void {
+
     if (this.model.checkbox) {
       localStorage.setItem('key', JSON.stringify(this.model));
     }
     const user = this.check.checkId(this.model)
+    console.log(user);
     if (user) {
       console.log('Этого гуся мы знаем', user.personData);
+      this.router.navigate(['home']).finally(undefined)
       // this.check.showData(this.model);
     } else {
       console.log('Залетный фраер');
     }
-  }
-
-  onSubmit(): void {
-
     this.form.reset();
   }
 
