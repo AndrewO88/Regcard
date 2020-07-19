@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {LogDataService, ValidIds} from '../services/log-data.service';
+import {LockalStorageManegmentService} from '../services/lockal-storage-manegment.service';
 
 @Component({
   selector: 'app-home',
@@ -9,7 +10,8 @@ import {LogDataService, ValidIds} from '../services/log-data.service';
 export class HomeComponent implements OnInit {
   dataClient: ValidIds
   constructor(
-    private  dataService: LogDataService
+    private  dataService: LogDataService,
+    private localStorage: LockalStorageManegmentService
   ) {
   }
 
@@ -18,4 +20,7 @@ export class HomeComponent implements OnInit {
     console.log(this.dataClient);
   }
 
+  clearStorage() {
+    this.localStorage.delete('key')
+  }
 }

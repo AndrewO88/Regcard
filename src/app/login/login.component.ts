@@ -3,6 +3,8 @@ import {FormGroup} from '@angular/forms';
 import {FormlyFieldConfig, FormlyFormOptions} from '@ngx-formly/core';
 import {LogDataService} from '../services/log-data.service';
 import {Router} from '@angular/router';
+import {LockalStorageManegmentService} from '../services/lockal-storage-manegment.service';
+import {USER_INFO} from '../config/config';
 
 @Component({
   selector: 'app-login',
@@ -67,7 +69,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private check: LogDataService,
-    private router:  Router
+    private router:  Router,
+    private saveStorage: LockalStorageManegmentService
   ) {
 
   }
@@ -76,7 +79,7 @@ export class LoginComponent implements OnInit {
   onSubmit(): void {
 
     if (this.model.checkbox) {
-      localStorage.setItem('key', JSON.stringify(this.model));
+      this.saveStorage.save(this.model, USER_INFO)
     }
     const user = this.check.checkId(this.model)
     console.log(user);
@@ -91,10 +94,10 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (!localStorage.getItem('key')) {
+    const startData = this.saveStorage.load(USER_INFO);
+    if (!startData) {
       return;
     }
-    const startData = localStorage.getItem('key');
     this.model = JSON.parse(startData);
   }
 

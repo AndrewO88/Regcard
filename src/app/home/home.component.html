@@ -1,7 +1,7 @@
 <mat-card class="card">
   <h1>Кнопочки..</h1>
   <h2>Красотиша-то какая.</h2>
-  <button routerLink="/" mat-raised-button color="primary">LogOut</button>
+  <button routerLink="/" mat-raised-button (click)="clearStorage()" color="primary">LogOut</button>
   <button class="tre" routerLink="/http" mat-raised-button color="primary">HttpClient</button>
   <h1>{{dataClient |  json}}</h1>
 </mat-card>
