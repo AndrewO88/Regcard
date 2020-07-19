@@ -1,8 +1,13 @@
-<mat-card class="card">
-  <h1>Кнопочки..</h1>
-  <h2>Красотиша-то какая.</h2>
-  <button routerLink="/" mat-raised-button (click)="clearStorage()" color="primary">LogOut</button>
-  <button class="tre" routerLink="/http" mat-raised-button color="primary">HttpClient</button>
-  <h1>{{dataClient |  json}}</h1>
-</mat-card>
-<img src="https://static9.depositphotos.com/1004167/1125/i/450/depositphotos_11257327-stock-photo-smiling-senior-man-near-computer.jpg" alt="">
+<div class="container">
+  <mat-card class="card">
+    <button routerLink="/" mat-raised-button (click)="clearStorage()" color="primary">LogOut</button>
+    <button class="tre" routerLink="/http" mat-raised-button color="primary">HttpClient</button>
+  </mat-card>
+  <mat-card class="card">
+    <div class="infoCard">
+      <div class="param" *ngFor="let key of dataClient.personData  | keyvalue">
+        <b>{{key.key}}</b> : {{key.value}}
+      </div>
+    </div>
+  </mat-card>
+</div>
