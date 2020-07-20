@@ -1,5 +1,5 @@
 <div class="container">
-  <mat-card class="card">
+  <mat-card class="card" cdkDrag>
     <h1>HttpClient</h1>
     <div class="form-control">
       <mat-form-field class="inp">
@@ -20,7 +20,7 @@
   </mat-card>
   <div class="cardPosition" *ngIf="!loading; else loadingBlock">
     <div *ngIf="todos.length; else noTodos" >
-      <mat-card class="card" *ngFor="let todo of todos">
+      <mat-card class="card" *ngFor="let todo of todos" cdkDrag>
         <p class="card">
           <span [class.completed]="todo.completed">{{todo.title | titlecase}}</span>
           <span>
