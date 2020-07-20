@@ -1,5 +1,5 @@
 <div class="container">
-  <mat-card>
+  <mat-card class="card">
     <h1>HttpClient</h1>
     <div class="form-control">
       <mat-form-field class="inp">
@@ -12,14 +12,16 @@
         </button>
       </mat-form-field>
     </div>
-    <button (click)="addTodo()" mat-raised-button color="primary">Добавить</button>
-    <button class="tre" (click)="fetchTodos()" mat-raised-button color="primary">Загрузить</button>
-    <button class="tre1" routerLink="/home" mat-raised-button color="primary">Назад</button>
+    <div  class="btns">
+      <button (click)="addTodo()" mat-raised-button color="primary">Добавить</button>
+      <button  (click)="fetchTodos()" mat-raised-button color="primary">Загрузить</button>
+      <button  routerLink="/home" mat-raised-button color="primary">Назад</button>
+    </div>
   </mat-card>
-  <div *ngIf="!loading; else loadingBlock">
-    <div *ngIf="todos.length; else noTodos">
+  <div class="cardPosition" *ngIf="!loading; else loadingBlock">
+    <div *ngIf="todos.length; else noTodos" >
       <mat-card class="card" *ngFor="let todo of todos">
-        <p>
+        <p class="card">
           <span [class.completed]="todo.completed">{{todo.title | titlecase}}</span>
           <span>
             <button (click)="removeTodo(todo.id)" mat-raised-button color="warn">Удалить</button>
@@ -31,10 +33,10 @@
       <p>Нет элементов</p>
     </ng-template>
   </div>
+  </div>
   <ng-template #loadingBlock>
     <p>Загрузка...</p>
   </ng-template>
-</div>
 
 
 

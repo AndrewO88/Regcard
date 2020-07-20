@@ -6,6 +6,10 @@
   padding: 0;
 }
 
+.cardPosition {
+  width: 100%;
+}
+
 body {
   font-family: 'Roboto', sans-serif;
   font-size: 1rem;
@@ -14,20 +18,13 @@ body {
   color: #333;
 }
 
-.tre {
-  position: relative;
-  left: 10px;
-}
-.tre1 {
-  position: relative;
-  left: 20px;
-}
 
 .container {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start ;
   align-items: center;
   height: 100%;
+  //width: 100%;
   flex-direction: column;
 
 }
@@ -52,11 +49,18 @@ body {
     color: red;
   }
 }
+.btns {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
 
 .card {
-  padding: 50rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
   margin: 0.7rem 0;
-  max-width: 50%;
+  //width: 100%;
   text-align: center;
 
   p {
