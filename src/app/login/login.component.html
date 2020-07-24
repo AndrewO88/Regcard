@@ -1,5 +1,10 @@
 <div class="container"><mat-card class="card">
-  <h1>Registration</h1><form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <h1>Login Please</h1><form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div>{{ error$ | async }}</div>
   <formly-form [model]="model" [fields]="fields" [options]="options" [form]="form"></formly-form>
-  <button type="submit" [disabled]="form.invalid" mat-raised-button>Confirm</button></form></mat-card>
+  <button type="submit" [disabled]="form.invalid" mat-raised-button>Confirm</button>
+</form>
+  <hr>
+  <button class="tre" routerLink="/reg" mat-raised-button color="primary">Registration</button>
+</mat-card>
 </div>

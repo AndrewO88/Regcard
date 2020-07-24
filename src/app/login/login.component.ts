@@ -3,8 +3,10 @@ import {FormGroup} from '@angular/forms';
 import {FormlyFieldConfig, FormlyFormOptions} from '@ngx-formly/core';
 import {LogDataService} from '../services/log-data.service';
 import {Router} from '@angular/router';
-import {LockalStorageManegmentService} from '../services/lockal-storage-manegment.service';
+import {LocalStorageManagementService} from '../services/local-storage-management.service';
 import {USER_INFO} from '../config/config';
+import {Observable} from 'rxjs';
+import {ErrorService} from '../services/error.service';
 
 @Component({
   selector: 'app-login',
@@ -12,6 +14,8 @@ import {USER_INFO} from '../config/config';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+  error$: Observable<string>;
+
   form = new FormGroup({});
   model: any = {
     login: '',
@@ -48,16 +52,6 @@ export class LoginComponent implements OnInit {
         },
       },
       {
-        key: 'passwordConfirm',
-        type: 'input',
-        templateOptions: {
-          type: 'password',
-          label: 'Confirm Password',
-          placeholder: 'Please re-enter your password',
-          required: true,
-        },
-      },
-      {
         key: 'checkbox',
         type: 'checkbox',
         templateOptions: {
@@ -70,35 +64,34 @@ export class LoginComponent implements OnInit {
   constructor(
     private check: LogDataService,
     private router:  Router,
-    private saveStorage: LockalStorageManegmentService
-  ) {
+    private saveStorage: LocalStorageManagementService,
+    public errSrv: ErrorService,
+  ) {}
 
+  ngOnInit(): void {
+    this.error$ = this.errSrv.error$;
+    const startData = this.saveStorage.load(USER_INFO);
+    if (!startData) {
+      return;
+    }
+    this.model = JSON.parse(startData);
   }
 
-
   onSubmit(): void {
-
     if (this.model.checkbox) {
       this.saveStorage.save(this.model, USER_INFO)
     }
     const user = this.check.checkId(this.model)
     console.log(user);
     if (user) {
+      this.errSrv.error$.next('')
       console.log('Этого гуся мы знаем', user.personData);
       this.router.navigate(['home']).finally(undefined)
       // this.check.showData(this.model);
     } else {
-      console.log('Залетный фраер');
+      this.errSrv.error$.next('Залетный фраер')
     }
     this.form.reset();
-  }
-
-  ngOnInit(): void {
-    const startData = this.saveStorage.load(USER_INFO);
-    if (!startData) {
-      return;
-    }
-    this.model = JSON.parse(startData);
   }
 
 }

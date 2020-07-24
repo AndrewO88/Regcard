@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
-export class LockalStorageManegmentService {
+export class LocalStorageManagementService {
 
   save(model: any, key: string): void {
     localStorage.setItem(key, JSON.stringify(model));

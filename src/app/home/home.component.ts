@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {LogDataService, ValidIds} from '../services/log-data.service';
-import {LockalStorageManegmentService} from '../services/lockal-storage-manegment.service';
+import {LocalStorageManagementService} from '../services/local-storage-management.service';
 import {USER_INFO} from '../config/config';
 
 @Component({
@@ -15,7 +15,7 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private  dataService: LogDataService,
-    private localStorage: LockalStorageManegmentService
+    private localStorage: LocalStorageManagementService
   ) {
   }
 
@@ -25,6 +25,6 @@ export class HomeComponent implements OnInit {
   }
 
   clearStorage() {
-    this.localStorage.delete(USER_INFO)
+     this.localStorage.delete(USER_INFO)
   }
 }

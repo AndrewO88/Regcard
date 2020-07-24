@@ -3,8 +3,8 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {ReactiveFormsModule, AbstractControl, FormsModule} from '@angular/forms';
-import { FormlyModule } from '@ngx-formly/core';
+import {ReactiveFormsModule, AbstractControl, FormsModule, ValidationErrors, FormControl} from '@angular/forms';
+import {FormlyFieldConfig, FormlyModule} from '@ngx-formly/core';
 import { FormlyMaterialModule } from '@ngx-formly/material';
 import {MatCardModule} from '@angular/material/card';
 import {CommonModule} from '@angular/common';
@@ -19,6 +19,19 @@ import {HttpClientModule} from '@angular/common/http';
 import {MatInputModule} from '@angular/material/input';
 import {LogDataService} from './services/log-data.service';
 import {DragDropModule} from '@angular/cdk/drag-drop';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { environment } from '../environments/environment';
+import { FirebaseComponent } from './firebase/firebase.component';
+import { RegistrationComponent } from './registration/registration.component';
+
+export function IpValidator(control: FormControl): ValidationErrors {
+  return !control.value || /(\d{1,3}\.){3}\d{1,3}/.test(control.value) ? null : { 'ip': true };
+}
+
+export function IpValidatorMessage(err, field: FormlyFieldConfig) {
+  return `"${field.formControl.value}" is not a valid IP Address`;
+}
 
 export function minlengthValidationMessages(err, field) {
   return `Should have atleast ${field.templateOptions.minLength} characters`;
@@ -45,7 +58,9 @@ export function fieldMatchValidator(control: AbstractControl) {
     AppComponent,
     LoginComponent,
     HomeComponent,
-    HttpClientComponent
+    HttpClientComponent,
+    FirebaseComponent,
+    RegistrationComponent
   ],
   imports: [
     BrowserModule,
@@ -55,10 +70,12 @@ export function fieldMatchValidator(control: AbstractControl) {
     FormlyModule.forRoot({
       validators: [
         {name: 'fieldMatch', validation: fieldMatchValidator},
+        { name: 'ip', validation: IpValidator },
       ],
       validationMessages: [
         {name: 'required', message: 'This field is required'},
         {name: 'minlength', message: minlengthValidationMessages},
+        { name: 'ip', message: IpValidatorMessage },
       ],
     }),
     FormlyMaterialModule,
@@ -71,7 +88,9 @@ export function fieldMatchValidator(control: AbstractControl) {
     HttpClientModule,
     FormlyModule.forRoot(),
     MatInputModule,
-    DragDropModule
+    DragDropModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireDatabaseModule
   ],
   providers: [LogDataService],
   bootstrap: [AppComponent]
