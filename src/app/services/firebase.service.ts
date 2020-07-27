@@ -28,7 +28,7 @@ export class FirebaseService {
     this.firestore.doc('users/' + user.id).update(user);
   }
 
-  deleteUser(userId: number) {
+  deleteUser(userId: string) {
     this.firestore.doc('users/' + userId).delete();
   }
 
