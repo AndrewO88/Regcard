@@ -1,44 +1,107 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {FormGroup} from '@angular/forms';
 import {FormlyFieldConfig, FormlyFormOptions} from '@ngx-formly/core';
-import {ValidIds} from '../services/log-data.service';
 import {FirebaseService} from '../services/firebase.service';
 import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
-  styleUrls: ['./registration.component.scss']
+  styleUrls: ['./registration.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class RegistrationComponent implements OnInit {
   form = new FormGroup({});
-  model: ValidIds = {
-    id: '',
+  model: any = {
+    name: '',
+    surname: '',
+    birthday: '',
+    gender: '',
     login: '',
+    email: '',
     password: '',
-    passwordConfirm: '',
-    personData: {
-      name: '',
-      address: '',
-      email: '',
-    }
+    phone: '',
   };
   options: FormlyFormOptions = {};
-  fields: FormlyFieldConfig[] = [{
+  fields: FormlyFieldConfig[] = [ {
+    fieldGroupClassName: 'display-flex',
+    fieldGroup: [
+      {
+        className: 'flex-1',
+        type: 'input',
+        key: 'name',
+        templateOptions: {
+          label: 'Имя',
+          required: true,
+        },
+      },
+      {
+        className: 'flex-1',
+        type: 'input',
+        key: 'surname',
+        templateOptions: {
+          label: 'Фамилия',
+          required: true,
+        },
+      },
+    ],
+  },
+    {
     validators: {
       validation: [
         {name: 'fieldMatch', options: {errorPath: 'passwordConfirm'}},
       ],
     },
+    fieldGroupClassName: 'row',
     fieldGroup: [
-      {
-        key: 'login',
+      {key: 'birthday',
         type: 'input',
         templateOptions: {
-          label: 'Login',
-          placeholder: 'Login',
+          label: 'Дата рождения',
+          type: 'date',
           required: true,
         },
+      },
+      {key: 'Gender',
+        type: 'radio',
+        templateOptions: {
+          label: 'Пол',
+          placeholder: 'Пол',
+          required: true,
+          options: [
+            { value: 1, label: 'Мужской' },
+            { value: 2, label: 'Женский' },
+          ],
+        },
+      },
+      {
+        fieldGroupClassName: 'display-flex',
+        fieldGroup: [
+          {
+            className: 'flex-1',
+            type: 'input',
+            key: 'login',
+            templateOptions: {
+              label: 'Имя аккаунта',
+              required: true,
+            },
+          },
+          {
+            className: 'flex-1',
+            type: 'select',
+            key: 'email',
+            templateOptions: {
+              label: 'email',
+              required: true,
+              options: [
+                {label: '@mail.ru', value: '@mail.ru'},
+                {label: '@icloud.com', value: '@icloud.com'},
+                {label: '@bk.ru', value: '@bk.ru'},
+                {label: '@list.ru', value: '@list.ru'}
+                ],
+            },
+          },
+        ],
       },
       {
         key: 'password',
@@ -62,39 +125,18 @@ export class RegistrationComponent implements OnInit {
         },
       },
       {
-        key: 'personData',
-        fieldGroup: [{
-          key: 'name',
-          type: 'input',
-          templateOptions: {
-            required: true,
-            type: 'text',
-            label: 'Name',
+        key: 'phone',
+        type: 'input',
+        templateOptions: {
+          label: 'Телефон',
+          placeholder: '+7-xxx-xxx-xx-xx',
+          addonLeft: {
+            text: '+7',
           },
-        },{
-          key: 'address',
-          type: 'input',
-          templateOptions: {
-            required: true,
-            type: 'text',
-            label: 'Address',
-          },
-        },{
-          key: 'email',
-          type: 'input',
-          templateOptions: {
-            required: true,
-            type: 'email',
-            label: 'Email',
-            maxlength: 10,
-            minlength: 6,
-            placeholder: "example@example.com"
-          },
-          // validators: {
-          // validation: ['ip'],
-          // },
-        }],
+          required: true,
+        },
       },
+
     ],
   }];
 

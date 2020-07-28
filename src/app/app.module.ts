@@ -25,6 +25,7 @@ import { environment } from '../environments/environment';
 import { FirebaseComponent } from './firebase/firebase.component';
 import { RegistrationComponent } from './registration/registration.component';
 
+
 export function IpValidator(control: FormControl): ValidationErrors {
   return !control.value || /(\d{1,3}\.){3}\d{1,3}/.test(control.value) ? null : { 'ip': true };
 }
@@ -76,6 +77,7 @@ export function fieldMatchValidator(control: AbstractControl) {
         {name: 'required', message: 'This field is required'},
         {name: 'minlength', message: minlengthValidationMessages},
         { name: 'ip', message: IpValidatorMessage },
+
       ],
     }),
     FormlyMaterialModule,
