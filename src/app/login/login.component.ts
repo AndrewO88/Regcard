@@ -7,6 +7,7 @@ import {LocalStorageManagementService} from '../services/local-storage-managemen
 import {USER_INFO} from '../config/config';
 import {Observable} from 'rxjs';
 import {ErrorService} from '../services/error.service';
+import {FirebaseService} from '../services/firebase.service';
 
 @Component({
   selector: 'app-login',
@@ -19,8 +20,7 @@ export class LoginComponent implements OnInit {
   form = new FormGroup({});
   model: any = {
     login: '',
-    password: '',
-    passwordConfirm: '',
+    email: '',
     checkbox: false
   };
   options: FormlyFormOptions = {};
@@ -32,11 +32,11 @@ export class LoginComponent implements OnInit {
     },
     fieldGroup: [
       {
-        key: 'login',
+        key: 'email',
         type: 'input',
         templateOptions: {
-          label: 'Login',
-          placeholder: 'Login',
+          label: 'email',
+          placeholder: 'email',
           required: true,
         },
       },
@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit {
         type: 'input',
         templateOptions: {
           type: 'password',
-          label: 'Password',
+          label: 'password',
           placeholder: 'Must be at least 5 characters',
           required: true,
           minLength: 5,
@@ -63,10 +63,12 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private check: LogDataService,
-    private router:  Router,
+    private router: Router,
+    private fire: FirebaseService,
     private saveStorage: LocalStorageManagementService,
     public errSrv: ErrorService,
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.error$ = this.errSrv.error$;
@@ -78,20 +80,18 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.model.checkbox) {
-      this.saveStorage.save(this.model, USER_INFO)
-    }
-    const user = this.check.checkId(this.model)
-    console.log(user);
-    if (user) {
-      this.errSrv.error$.next('')
-      console.log('Этого гуся мы знаем', user.personData);
-      this.router.navigate(['home']).finally(undefined)
-      // this.check.showData(this.model);
-    } else {
-      this.errSrv.error$.next('Залетный фраер')
-    }
-    this.form.reset();
+    this.fire.firebaseSignin(this.model).then(data => {
+      console.log('user dign in success ', data);
+      this.errSrv.error$.next('');
+      if (this.model.checkbox) {
+        this.saveStorage.save(this.model, USER_INFO);
+      }
+      this.router.navigate(['home']).finally(undefined);
+    }).catch(function(error) {
+      console.log('firebase sign in error ', error);
+    }).then(() => {
+      this.errSrv.error$.next('Залетный фраер');
+    });
   }
 
 }

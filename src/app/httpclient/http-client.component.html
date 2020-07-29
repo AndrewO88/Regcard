@@ -15,7 +15,7 @@
     <div  class="btns">
       <button (click)="addTodo()" mat-raised-button color="primary">Добавить</button>
       <button  (click)="fetchTodos()" mat-raised-button color="primary">Загрузить</button>
-      <button  routerLink="/home" mat-raised-button color="primary">Назад</button>
+      <button routerLink="/home" mat-raised-button color="primary">Назад</button>
     </div>
   </mat-card>
   <div class="cardPosition" *ngIf="!loading; else loadingBlock">

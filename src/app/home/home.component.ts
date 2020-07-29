@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {LogDataService, ValidIds} from '../services/log-data.service';
+import {LogDataService} from '../services/log-data.service';
 import {LocalStorageManagementService} from '../services/local-storage-management.service';
 import {USER_INFO} from '../config/config';
+import {FirebaseService} from '../services/firebase.service';
+
 
 @Component({
   selector: 'app-home',
@@ -10,21 +12,18 @@ import {USER_INFO} from '../config/config';
 })
 export class HomeComponent implements OnInit {
 
-  dataClient: ValidIds
-  paramList: any[]
-
   constructor(
     private  dataService: LogDataService,
-    private localStorage: LocalStorageManagementService
+    private localStorage: LocalStorageManagementService,
+    private fire: FirebaseService,
   ) {
   }
 
   ngOnInit(): void {
-    this.dataClient =  this.dataService.userData
-    this.paramList =  Object.entries(this.dataClient.personData)
   }
 
   clearStorage() {
      this.localStorage.delete(USER_INFO)
+    this.fire.firebaseSignout()
   }
 }

@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import {Todo, TodosService} from './todos.service'
+import {Component, OnInit} from '@angular/core';
+import {Todo, TodosService} from './todos.service';
 
 @Component({
   selector: 'app-httpclient',
@@ -8,47 +8,48 @@ import {Todo, TodosService} from './todos.service'
 })
 export class HttpClientComponent implements OnInit {
 
-  todos: Todo[] = []
-  loading = false
-  todoTitle = ''
+  todos: Todo[] = [];
+  loading = false;
+  todoTitle = '';
 
-  constructor(private todosService: TodosService) {}
+  constructor(private todosService: TodosService) {
+  }
 
   ngOnInit() {
-    this.fetchTodos()
+    this.fetchTodos();
   }
 
   addTodo() {
     if (!this.todoTitle.trim()) {
-      return
+      return;
     }
 
     this.todosService.addTodo({
       title: this.todoTitle,
       completed: false
     }).subscribe(todo => {
-      this.todos.push(todo)
-      this.todoTitle = ''
-    })
+      this.todos.push(todo);
+      this.todoTitle = '';
+    });
   }
 
   fetchTodos() {
-    this.loading = true
+    this.loading = true;
     this.todosService.fetchTodos()
       .subscribe(todos => {
-        this.todos = todos
-        this.loading = false
-      })
+        this.todos = todos;
+        this.loading = false;
+      });
   }
 
   removeTodo(id: number) {
     this.todosService.removeTodo(id)
       .subscribe(() => {
-        this.todos = this.todos.filter(t => t.id !== id)
-      })
+        this.todos = this.todos.filter(t => t.id !== id);
+      });
   }
 
   onClick() {
-    this.todoTitle = ''
+    this.todoTitle = '';
   }
 }

@@ -8,11 +8,4 @@
       <button routerLink="/" mat-raised-button (click)="clearStorage()" color="warn">LogOut</button>
     </div>
   </mat-card >
-  <mat-card class="card" cdkDrag>
-    <div class="infoCard">
-      <div class="param" *ngFor="let key of dataClient.personData  | keyvalue">
-        <b>{{key.key}}</b> : {{key.value}}
-      </div>
-    </div>
-  </mat-card>
 </div>
